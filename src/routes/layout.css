@@ -183,11 +183,12 @@ section {
 
 .tall {
 	display: flex;
-	min-height: 100vh;
-	min-height: 100svh;
+	height: 100vh;
+	height: 100svh;
+	min-height: max-content;
 	align-items: center;
 	overflow: hidden;
-	padding: clamp(112px, 15vh, 164px) 0 clamp(88px, 11vh, 128px);
+	padding: clamp(96px, 13vh, 152px) 0 clamp(72px, 10vh, 116px);
 }
 
 .band {
@@ -511,8 +512,12 @@ h3 {
 	background: var(--pill-hover);
 }
 
-.ghost .arrow {
+.ghost svg {
 	width: 17px;
+	height: 17px;
+}
+
+.ghost .arrow {
 	transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -532,48 +537,28 @@ h3 {
 	opacity: 0.18;
 }
 
-.hero-grid {
-	display: grid;
-	grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-	align-items: center;
-	gap: 40px;
-}
-
-.hero-copy {
+.hero-card {
+	position: relative;
 	z-index: 3;
-	max-width: 43rem;
+	max-width: 46rem;
+	text-align: center;
 }
 
-.hero h1 span {
-	background: none;
-	color: var(--ink-3);
-	-webkit-text-fill-color: var(--ink-3);
+.hero-card .eyebrow {
+	margin-top: clamp(28px, 4.5vh, 44px);
+}
+
+.hero-card .lede {
+	max-width: none;
+	margin-inline: auto;
+}
+
+.hero h1 {
+	font-size: clamp(2.9rem, 6vw, 5.6rem);
 }
 
 .hero-ascii {
 	inset: 0;
-}
-
-.hero-meta {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px 26px;
-	margin-top: clamp(30px, 5vh, 54px);
-	color: var(--ink-3);
-	font-size: 13.5px;
-}
-
-.hero-meta span {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-}
-
-.dot {
-	width: 5px;
-	height: 5px;
-	border-radius: 50%;
-	background: var(--ink-3);
 }
 
 .hero-index {
@@ -828,14 +813,14 @@ h3 {
 
 .contact {
 	display: flex;
-	min-height: 100vh;
-	min-height: 100svh;
-	align-items: flex-start;
+	min-height: 72vh;
+	min-height: 72svh;
+	align-items: center;
 	overflow: hidden;
 }
 
 .contact-copy {
-	padding-top: clamp(104px, 16vh, 180px);
+	padding-block: clamp(96px, 14vh, 160px);
 	text-align: center;
 }
 
@@ -852,10 +837,6 @@ h3 {
 
 .contact .cta {
 	margin-top: clamp(28px, 4.4vh, 48px);
-}
-
-.contact-ascii {
-	inset: 0;
 }
 
 .ascii-rule {
@@ -951,10 +932,6 @@ footer {
 		display: inline-flex !important;
 	}
 
-	.hero-grid {
-		grid-template-columns: minmax(0, 1fr) minmax(260px, 0.55fr);
-	}
-
 	.entry {
 		grid-template-columns: minmax(150px, 0.8fr) minmax(160px, 1fr) minmax(220px, 1.25fr) 22px;
 	}
@@ -979,16 +956,9 @@ footer {
 	}
 
 	.tall {
+		height: auto;
 		min-height: 100svh;
-		padding: 112px 0 74px;
-	}
-
-	.hero-grid {
-		display: block;
-	}
-
-	.hero-copy {
-		max-width: 34rem;
+		padding: 104px 0 88px;
 	}
 
 	.hero h1 {
@@ -1075,11 +1045,6 @@ footer {
 
 	.hero .lede {
 		max-width: 34ch;
-	}
-
-	.hero-meta {
-		display: grid;
-		gap: 8px;
 	}
 
 	.section-heading {

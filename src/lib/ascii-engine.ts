@@ -1,6 +1,5 @@
 import discusPlate from '#lib/assets/ascii/discus.jpg?url';
 import handsPlate from '#lib/assets/ascii/hands.jpg?url';
-import victoryPlate from '#lib/assets/ascii/victory.jpg?url';
 
 type FieldConfig = {
 	fs?: number;
@@ -371,55 +370,33 @@ function requiredCanvas(id: string) {
 	return canvas;
 }
 
-function requiredElement(id: string) {
-	const element = document.getElementById(id);
-	if (!element) throw new Error(`Missing required element #${id}.`);
-	return element;
-}
-
 export function initializeAsciiExperience() {
 	const root = document.documentElement;
 	const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-	const contactElement = requiredElement('contact');
-
-	function bottomProgress() {
-		const top = contactElement.getBoundingClientRect().top + scrollY;
-		const documentMaximum = document.documentElement.scrollHeight - innerHeight;
-		const start = Math.max(0, top - innerHeight * 0.55);
-		if (documentMaximum <= start + 1) return 1;
-		return Math.min(1, Math.max(0, (scrollY - start) / (documentMaximum - start)));
-	}
 
 	const fields = [
 		createField(
 			requiredCanvas('fieldHero'),
-			victoryPlate,
+			handsPlate,
 			{
 				fs: 9,
 				place(context, image, width, height) {
-					const aspectRatio = image.naturalWidth / image.naturalHeight;
-					if (width < 900) {
-						const drawnHeight = Math.min(height * 0.92, (width * 1.7) / aspectRatio);
-						context.drawImage(
-							image,
-							width * 0.6 - (drawnHeight * aspectRatio) / 2,
-							height * 0.54 - drawnHeight / 2,
-							drawnHeight * aspectRatio,
-							drawnHeight
-						);
-					} else {
-						const drawnHeight = Math.min(height * 0.95, (width * 0.58) / aspectRatio);
-						context.drawImage(
-							image,
-							width * 0.735 - (drawnHeight * aspectRatio) / 2,
-							height * 0.5 - drawnHeight / 2,
-							drawnHeight * aspectRatio,
-							drawnHeight
-						);
-					}
+					const narrow = width < 900;
+					const drawnWidth = width * (narrow ? 2.05 : 1.16);
+					const drawnHeight = drawnWidth * (image.naturalHeight / image.naturalWidth);
+					context.drawImage(
+						image,
+						(width - drawnWidth) / 2,
+						height * (narrow ? 0.68 : 0.64) - drawnHeight * 0.575,
+						drawnWidth,
+						drawnHeight
+					);
 				},
-				dim: (x, y, width) =>
-					width < 900 ? 0.14 + 0.86 * smooth(0.5, 0.68, y) : 0.22 + 0.78 * smooth(0.33, 0.47, x)
+				dim(x, y) {
+					const ellipseX = (x - 0.5) / 0.36;
+					const ellipseY = (y - 0.44) / 0.34;
+					return 0.26 + 0.74 * smooth(0.78, 1.3, Math.hypot(ellipseX, ellipseY));
+				}
 			},
 			reducedMotion
 		),
@@ -484,42 +461,6 @@ export function initializeAsciiExperience() {
 					width < 900
 						? 0.15 + 0.85 * smooth(0.52, 0.68, y)
 						: 0.24 + 0.76 * smooth(0.34, 0.48, 1 - x)
-			},
-			reducedMotion
-		),
-		createField(
-			requiredCanvas('fieldHands'),
-			handsPlate,
-			{
-				fs: 10,
-				progress: () => (reducedMotion ? 1 : bottomProgress()),
-				place(context, image, width, height, progress) {
-					const narrow = width < 900;
-					const oversize = narrow ? 2.15 + 0.55 * progress : 1.18 + 0.2 * progress;
-					const drawnWidth = width * oversize;
-					const drawnHeight = drawnWidth * (image.naturalHeight / image.naturalWidth);
-					const x = (width - drawnWidth) / 2;
-					const y = height * (narrow ? 0.7 : 0.66) - drawnHeight * 0.575;
-					const closingDistance = drawnWidth * 0.14 * progress;
-					const middle = x + drawnWidth * 0.505;
-					context.save();
-					context.beginPath();
-					context.rect(-40, -40, middle + 40, height + 80);
-					context.clip();
-					context.drawImage(image, x + closingDistance, y, drawnWidth, drawnHeight);
-					context.restore();
-					context.save();
-					context.beginPath();
-					context.rect(middle, -40, width - middle + 40, height + 80);
-					context.clip();
-					context.drawImage(image, x - closingDistance, y, drawnWidth, drawnHeight);
-					context.restore();
-				},
-				dim(x, y) {
-					const ellipseX = (x - 0.5) / 0.3;
-					const ellipseY = (y - 0.2) / 0.26;
-					return 0.3 + 0.7 * smooth(0.72, 1.3, Math.hypot(ellipseX, ellipseY));
-				}
 			},
 			reducedMotion
 		)

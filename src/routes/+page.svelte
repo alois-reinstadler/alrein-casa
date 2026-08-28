@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { ArrowDownRight, ArrowUpRight, Mail, Menu, X } from '@lucide/svelte';
+	import { ArrowUpRight, Mail, Menu, X } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 	import { initializeAsciiExperience } from '#lib/ascii-engine.js';
+	import LiquidLogo from '#lib/components/liquid-logo.svelte';
 	import ThemeToggle from '#lib/components/theme-toggle.svelte';
 	import { Button } from '#lib/components/ui/button/index.js';
 	import { sections } from '#lib/site-data.js';
@@ -111,29 +112,17 @@
 <main id="content">
 	<section class="hero tall" id="top" aria-labelledby="hero-title">
 		<canvas class="ascii-canvas hero-ascii" id="fieldHero" aria-hidden="true"></canvas>
-		<div class="wrap hero-grid">
-			<div class="hero-copy">
-				<p class="eyebrow rise" style="--d: .12s">ALREIN.CASA / WIEN, ÖSTERREICH</p>
-				<h1 class="metal rise" id="hero-title" style="--d: .22s">
-					Ich gestalte Dinge.<br />Ich baue Dinge.<br /><span>Manchmal</span><br />funktionieren sie
-					sogar.
-				</h1>
-				<p class="lede rise" style="--d: .36s">
-					Designer, Entwickler und Betreiber eigener Systeme. Das hier ist mein öffentlicher
-					Schreibtisch: aktuelle Arbeit, verschickte Projekte und nützliche Fehlversuche.
-				</p>
-				<a class="ghost rise" href="#building" style="--d: .48s">
-					Was gerade entsteht <ArrowDownRight class="arrow" aria-hidden="true" />
-				</a>
-				<div class="hero-meta rise" style="--d: .58s">
-					<span><i class="dot"></i>Design & Code</span>
-					<span><i class="dot"></i>Unabhängige Systeme</span>
-					<span><i class="dot"></i>Seit 1996 neugierig</span>
-				</div>
-			</div>
+		<div class="wrap hero-card">
+			<div class="rise" style="--d: .1s"><LiquidLogo /></div>
+			<p class="eyebrow rise" style="--d: .18s">ALREIN.CASA / WIEN, ÖSTERREICH</p>
+			<h1 class="metal rise" id="hero-title" style="--d: .26s">Alois Reinstadler</h1>
+			<p class="lede rise" style="--d: .36s">Designer, Entwickler & Betreiber eigener Systeme.</p>
+			<a class="ghost rise" href="mailto:alreinstadler@gmail.com" style="--d: .48s">
+				<Mail aria-hidden="true" /> alreinstadler@gmail.com
+			</a>
 		</div>
 		<div class="hero-index" aria-hidden="true">
-			<span>PERSONAL INDEX</span><span>FIG. 01 / VICTORY</span>
+			<span>PERSONAL INDEX</span><span>FIG. 01 / HANDS</span>
 		</div>
 	</section>
 
@@ -207,7 +196,6 @@
 	{/each}
 
 	<section class="contact" id="contact" aria-labelledby="contact-title">
-		<canvas class="ascii-canvas contact-ascii" id="fieldHands" aria-hidden="true"></canvas>
 		<div class="wrap contact-copy">
 			<p class="eyebrow rise">Lass uns reden</p>
 			<h2 class="metal rise" id="contact-title" style="--d: .1s">
