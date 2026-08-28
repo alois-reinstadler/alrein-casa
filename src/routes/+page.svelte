@@ -110,19 +110,28 @@
 </header>
 
 <main id="content">
-	<section class="hero tall" id="top" aria-labelledby="hero-title">
+	<section class="hero tall" id="top" aria-label="alrein">
+		<div class="wrap logo-stage">
+			<div class="rise" style="--d: .1s"><LiquidLogo /></div>
+			<p class="eyebrow rise" style="--d: .24s">ALREIN.CASA / WIEN, ÖSTERREICH</p>
+		</div>
+		<div class="hero-index" aria-hidden="true">
+			<span>PERSONAL INDEX</span><span>FIG. 01 / ALREIN</span>
+		</div>
+	</section>
+
+	<section class="hero tall" id="card" aria-labelledby="hero-title">
 		<canvas class="ascii-canvas hero-ascii" id="fieldHero" aria-hidden="true"></canvas>
 		<div class="wrap hero-card">
-			<div class="rise" style="--d: .1s"><LiquidLogo /></div>
-			<p class="eyebrow rise" style="--d: .18s">ALREIN.CASA / WIEN, ÖSTERREICH</p>
-			<h1 class="metal rise" id="hero-title" style="--d: .26s">Alois Reinstadler</h1>
-			<p class="lede rise" style="--d: .36s">Designer, Entwickler & Betreiber eigener Systeme.</p>
-			<a class="ghost rise" href="mailto:alreinstadler@gmail.com" style="--d: .48s">
-				<Mail aria-hidden="true" /> alreinstadler@gmail.com
+			<p class="eyebrow rise">WIEN, ÖSTERREICH</p>
+			<h1 class="liquid rise" id="hero-title" style="--d: .1s">Alois Reinstadler</h1>
+			<p class="lede rise" style="--d: .2s">Designer, Entwickler & Betreiber eigener Systeme.</p>
+			<a class="grad cta rise" href="mailto:alreinstadler@gmail.com" style="--d: .3s">
+				<span><Mail aria-hidden="true" />alreinstadler@gmail.com</span>
 			</a>
 		</div>
 		<div class="hero-index" aria-hidden="true">
-			<span>PERSONAL INDEX</span><span>FIG. 01 / HANDS</span>
+			<span>PERSONAL CARD</span><span>FIG. 02 / HANDS</span>
 		</div>
 	</section>
 
@@ -198,7 +207,7 @@
 	<section class="contact" id="contact" aria-labelledby="contact-title">
 		<div class="wrap contact-copy">
 			<p class="eyebrow rise">Lass uns reden</p>
-			<h2 class="metal rise" id="contact-title" style="--d: .1s">
+			<h2 class="liquid rise" id="contact-title" style="--d: .1s">
 				Erzähl mir, was du<br />bauen möchtest.
 			</h2>
 			<p class="lede rise" style="--d: .2s">

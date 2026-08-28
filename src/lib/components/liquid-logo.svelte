@@ -134,7 +134,7 @@
 	.liquid-logo {
 		position: relative;
 		aspect-ratio: 1218 / 386;
-		width: min(680px, 92vw);
+		width: min(920px, 94vw);
 		margin-inline: auto;
 		transform-style: preserve-3d;
 		will-change: transform;

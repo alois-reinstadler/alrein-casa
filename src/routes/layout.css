@@ -33,6 +33,11 @@
 		#aab3c1 100%
 	);
 	--sheen: rgb(255 255 255 / 92%);
+	--lm-base: #c9d3e0;
+	--lm-hi: #fff;
+	--lm-band: #0d121c;
+	--lm-warm: #ffb49b;
+	--lm-cool: #9dc1ff;
 	--bevel: 0 1px 0 rgb(0 0 0 / 60%);
 	--lift: rgb(255 255 255 / 5.5%);
 	--edge: rgb(255 255 255 / 9%);
@@ -73,6 +78,11 @@
 		#59616f 100%
 	);
 	--sheen: rgb(255 255 255 / 75%);
+	--lm-base: #333c4a;
+	--lm-hi: #05070a;
+	--lm-band: #e8eef6;
+	--lm-warm: #b8511f;
+	--lm-cool: #2f66c4;
 	--bevel: 0 1px 0 rgb(255 255 255 / 85%);
 	--lift: rgb(255 255 255 / 90%);
 	--edge: rgb(0 0 0 / 8%);
@@ -222,8 +232,37 @@ section {
 	}
 }
 
+/* Liquid-metal text: flowing 70deg chrome bands with warm/cool dispersion
+   fringes, matching the hero logo shader. Period is 240px along the band
+   axis; the keyframe offset is exactly one period, so the loop is seamless. */
+.liquid {
+	background-image: repeating-linear-gradient(
+		70deg,
+		var(--lm-base) 0px,
+		var(--lm-hi) 54px,
+		var(--lm-warm) 92px,
+		var(--lm-band) 104px,
+		var(--lm-band) 132px,
+		var(--lm-cool) 144px,
+		var(--lm-base) 240px
+	);
+	background-clip: text;
+	color: transparent;
+	filter: drop-shadow(var(--bevel));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: liquid-flow 6s linear infinite;
+}
+
+@keyframes liquid-flow {
+	to {
+		background-position: 225.5px -82.1px;
+	}
+}
+
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-	.metal {
+	.metal,
+	.liquid {
 		background: none;
 		color: var(--ink);
 		filter: none;
@@ -412,13 +451,14 @@ h3 {
 	border-radius: inherit;
 	background: conic-gradient(
 		from var(--spin),
-		#ff2d55,
-		#ff9f0a,
-		#ffd60a,
-		#32d74b,
-		#0a84ff,
-		#bf5af2,
-		#ff2d55
+		#f8fafc,
+		#c6d0dd,
+		#ffb49b,
+		#10151d,
+		#9dc1ff,
+		#e2e9f2,
+		#8f9aab,
+		#f8fafc
 	);
 	content: '';
 	animation: rainbow-turn var(--speed) linear infinite;
@@ -537,6 +577,16 @@ h3 {
 	opacity: 0.18;
 }
 
+.logo-stage {
+	position: relative;
+	z-index: 3;
+	text-align: center;
+}
+
+.logo-stage .eyebrow {
+	margin: clamp(30px, 5vh, 52px) 0 0;
+}
+
 .hero-card {
 	position: relative;
 	z-index: 3;
@@ -554,7 +604,7 @@ h3 {
 }
 
 .hero h1 {
-	font-size: clamp(2.3rem, 4.4vw, 3.8rem);
+	font-size: clamp(2.9rem, 6vw, 5.6rem);
 }
 
 .hero-ascii {
