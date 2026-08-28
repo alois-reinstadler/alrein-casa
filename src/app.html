@@ -1,12 +1,21 @@
 <!doctype html>
 
-<html lang="%paraglide.lang%" dir="%paraglide.dir%">
+<html lang="de-AT" dir="ltr">
 	<head>
 		<meta charset="utf-8" />
 
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta name="text-scale" content="scale" />
+		<script>
+			try {
+				const saved = localStorage.getItem('alrein-theme');
+				const theme =
+					saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+				document.documentElement.dataset.theme = theme;
+				document.documentElement.style.colorScheme = theme;
+			} catch (_) {}
+		</script>
 		%sveltekit.head%
 	</head>
 
