@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ArrowDownRight, ArrowUpRight, Mail, Menu, X } from '@lucide/svelte';
 	import { onMount } from 'svelte';
-	import AsciiField from '#lib/components/ascii-field.svelte';
+	import { initializeAsciiExperience } from '#lib/ascii-engine.js';
 	import ThemeToggle from '#lib/components/theme-toggle.svelte';
 	import { Button } from '#lib/components/ui/button/index.js';
 	import { sections } from '#lib/site-data.js';
@@ -45,7 +45,11 @@
 
 	onMount(() => {
 		document.documentElement.classList.add('ready');
-		return () => document.documentElement.classList.remove('ready');
+		const destroyAsciiExperience = initializeAsciiExperience();
+		return () => {
+			destroyAsciiExperience();
+			document.documentElement.classList.remove('ready');
+		};
 	});
 </script>
 
@@ -106,9 +110,7 @@
 
 <main id="content">
 	<section class="hero tall" id="top" aria-labelledby="hero-title">
-		<div class="hero-ascii" aria-hidden="true">
-			<AsciiField mode="figure" interactive />
-		</div>
+		<canvas class="ascii-canvas hero-ascii" id="fieldHero" aria-hidden="true"></canvas>
 		<div class="wrap hero-grid">
 			<div class="hero-copy">
 				<p class="eyebrow rise" style="--d: .12s">ALREIN.CASA / WIEN, ÖSTERREICH</p>
@@ -131,7 +133,7 @@
 			</div>
 		</div>
 		<div class="hero-index" aria-hidden="true">
-			<span>PERSONAL INDEX</span><span>FIG. 01 / THE THINKER, PROBABLY</span>
+			<span>PERSONAL INDEX</span><span>FIG. 01 / VICTORY</span>
 		</div>
 	</section>
 
@@ -149,20 +151,15 @@
 
 	{#each sections as section, index (section.id)}
 		<section
-			class:has-ascii={section.id === 'lab' || section.id === 'infrastructure'}
+			class:has-ascii={section.id === 'lab'}
 			class:graveyard={section.id === 'graveyard'}
 			class="index-section band"
 			id={section.id}
 			use:observe={section.id}
 			aria-labelledby={`${section.id}-title`}
 		>
-			{#if section.id === 'lab' || section.id === 'infrastructure'}
-				<div class="section-ascii" aria-hidden="true">
-					<AsciiField
-						mode={section.id === 'lab' ? 'signal' : 'network'}
-						interactive={section.id === 'infrastructure'}
-					/>
-				</div>
+			{#if section.id === 'lab'}
+				<canvas class="ascii-canvas section-ascii" id="fieldProcess" aria-hidden="true"></canvas>
 			{/if}
 
 			<div class="wrap">
@@ -201,10 +198,16 @@
 				</div>
 			</div>
 		</section>
+
+		{#if section.id === 'shipped'}
+			<div class="ascii-rule" aria-hidden="true">
+				<canvas class="ascii-canvas" id="fieldRule"></canvas>
+			</div>
+		{/if}
 	{/each}
 
 	<section class="contact" id="contact" aria-labelledby="contact-title">
-		<div class="contact-ascii" aria-hidden="true"><AsciiField mode="horizon" /></div>
+		<canvas class="ascii-canvas contact-ascii" id="fieldHands" aria-hidden="true"></canvas>
 		<div class="wrap contact-copy">
 			<p class="eyebrow rise">Lass uns reden</p>
 			<h2 class="metal rise" id="contact-title" style="--d: .1s">
