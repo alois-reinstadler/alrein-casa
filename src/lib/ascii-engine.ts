@@ -1,7 +1,8 @@
 import discusPlate from '#lib/assets/ascii/discus.jpg?url';
 import handsPlate from '#lib/assets/ascii/hands.jpg?url';
+import { createFieldGL, probeAsciiGL } from '#lib/ascii-gl.js';
 
-type FieldConfig = {
+export type FieldConfig = {
 	fs?: number;
 	dim: (x: number, y: number, width: number) => number;
 	paint?: (context: CanvasRenderingContext2D, width: number, height: number) => void;
@@ -15,7 +16,7 @@ type FieldConfig = {
 	progress?: () => number;
 };
 
-type Field = {
+export type Field = {
 	element: HTMLCanvasElement;
 	destroy: () => void;
 	point: (event: PointerEvent) => void;
@@ -373,9 +374,10 @@ function requiredCanvas(id: string) {
 export function initializeAsciiExperience() {
 	const root = document.documentElement;
 	const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const makeField: typeof createField = probeAsciiGL() ? createFieldGL : createField;
 
 	const fields = [
-		createField(
+		makeField(
 			requiredCanvas('fieldHero'),
 			handsPlate,
 			{
@@ -400,7 +402,7 @@ export function initializeAsciiExperience() {
 			},
 			reducedMotion
 		),
-		createField(
+		makeField(
 			requiredCanvas('fieldRule'),
 			null,
 			{
@@ -431,7 +433,7 @@ export function initializeAsciiExperience() {
 			},
 			reducedMotion
 		),
-		createField(
+		makeField(
 			requiredCanvas('fieldProcess'),
 			discusPlate,
 			{
