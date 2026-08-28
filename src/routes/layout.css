@@ -138,6 +138,18 @@ a {
 	outline-offset: 4px;
 }
 
+.sr-only {
+	position: absolute;
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
 .skip-link {
 	position: fixed;
 	z-index: 100;
@@ -258,6 +270,22 @@ section {
 	to {
 		background-position: 225.5px -82.1px;
 	}
+}
+
+/* .ready .rise overrides the animation shorthand, which would silence the
+   chrome animations on "liquid rise"/"metal rise" elements — run both. */
+.ready .rise.liquid {
+	animation:
+		rise 0.9s cubic-bezier(0.16, 0.84, 0.28, 1) forwards,
+		liquid-flow 6s linear infinite;
+	animation-delay: var(--d, 0s), 0s;
+}
+
+.ready .rise.metal {
+	animation:
+		rise 0.9s cubic-bezier(0.16, 0.84, 0.28, 1) forwards,
+		sheen 9s linear infinite;
+	animation-delay: var(--d, 0s), 0s;
 }
 
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -481,10 +509,20 @@ h3 {
 	justify-content: center;
 	gap: 9px;
 	border-radius: inherit;
-	background: var(--btn-face);
+	background-image: repeating-linear-gradient(
+		70deg,
+		#cdd6e2 0px,
+		#fff 60px,
+		#ffcdb8 92px,
+		#8d99ab 108px,
+		#b9c8ff 124px,
+		#e6ecf4 160px,
+		#cdd6e2 240px
+	);
+	color: #0b0e14;
 	padding: var(--pad);
 	white-space: nowrap;
-	transition: background-color 0.4s ease;
+	animation: liquid-flow 6s linear infinite;
 }
 
 @keyframes rainbow-turn {
@@ -587,20 +625,34 @@ h3 {
 	margin: clamp(30px, 5vh, 52px) 0 0;
 }
 
-.hero-card {
+/* Scroll trap: the hands stage pins at the top while the index sections
+   scroll over it as opaque cards, with gaps that let the hands show through. */
+.hands-trap {
 	position: relative;
-	z-index: 3;
-	max-width: 54rem;
-	text-align: center;
 }
 
-.hero-card .eyebrow {
-	margin-top: clamp(28px, 4.5vh, 44px);
+.hands-stage {
+	position: sticky;
+	z-index: 0;
+	top: 0;
+	height: 100vh;
+	height: 100svh;
+	overflow: hidden;
 }
 
-.hero-card .lede {
-	max-width: none;
-	margin-inline: auto;
+.trap-sections {
+	position: relative;
+	z-index: 2;
+	padding-bottom: 20vh;
+}
+
+.trap-sections .index-section {
+	margin-bottom: 20vh;
+	background: var(--ground);
+}
+
+.trap-sections .ascii-rule {
+	background: var(--ground);
 }
 
 .hero h1 {
@@ -898,12 +950,24 @@ h3 {
 footer {
 	position: relative;
 	z-index: 3;
+	display: flex;
+	min-height: 74vh;
+	min-height: 74svh;
+	align-items: flex-end;
+	overflow: hidden;
 	border-top: 1px solid var(--hairline-2);
 	background: var(--ground);
 	padding: clamp(34px, 5vh, 54px) 0;
 }
 
+.footer-ascii {
+	inset: 0;
+}
+
 .foot {
+	position: relative;
+	z-index: 3;
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;

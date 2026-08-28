@@ -1,5 +1,6 @@
 import discusPlate from '#lib/assets/ascii/discus.jpg?url';
 import handsPlate from '#lib/assets/ascii/hands.jpg?url';
+import victoryPlate from '#lib/assets/ascii/victory.jpg?url';
 
 type FieldConfig = {
 	fs?: number;
@@ -382,21 +383,17 @@ export function initializeAsciiExperience() {
 				fs: 9,
 				place(context, image, width, height) {
 					const narrow = width < 900;
-					const drawnWidth = width * (narrow ? 2.05 : 1.16);
+					const drawnWidth = width * (narrow ? 1.35 : 1.16);
 					const drawnHeight = drawnWidth * (image.naturalHeight / image.naturalWidth);
 					context.drawImage(
 						image,
 						(width - drawnWidth) / 2,
-						height * (narrow ? 0.68 : 0.64) - drawnHeight * 0.575,
+						height * (narrow ? 0.5 : 0.64) - drawnHeight * (narrow ? 0.5 : 0.575),
 						drawnWidth,
 						drawnHeight
 					);
 				},
-				dim(x, y) {
-					const ellipseX = (x - 0.5) / 0.36;
-					const ellipseY = (y - 0.44) / 0.34;
-					return 0.26 + 0.74 * smooth(0.78, 1.3, Math.hypot(ellipseX, ellipseY));
-				}
+				dim: () => 1
 			},
 			reducedMotion
 		),
@@ -461,6 +458,41 @@ export function initializeAsciiExperience() {
 					width < 900
 						? 0.15 + 0.85 * smooth(0.52, 0.68, y)
 						: 0.24 + 0.76 * smooth(0.34, 0.48, 1 - x)
+			},
+			reducedMotion
+		),
+		createField(
+			requiredCanvas('fieldFooter'),
+			victoryPlate,
+			{
+				fs: 9,
+				place(context, image, width, height) {
+					const aspectRatio = image.naturalWidth / image.naturalHeight;
+					if (width < 900) {
+						const drawnHeight = Math.min(height * 0.92, (width * 1.7) / aspectRatio);
+						context.drawImage(
+							image,
+							width * 0.6 - (drawnHeight * aspectRatio) / 2,
+							height * 0.54 - drawnHeight / 2,
+							drawnHeight * aspectRatio,
+							drawnHeight
+						);
+					} else {
+						const drawnHeight = Math.min(height * 0.95, (width * 0.58) / aspectRatio);
+						context.drawImage(
+							image,
+							width * 0.735 - (drawnHeight * aspectRatio) / 2,
+							height * 0.5 - drawnHeight / 2,
+							drawnHeight * aspectRatio,
+							drawnHeight
+						);
+					}
+				},
+				dim(x, y, width) {
+					const base =
+						width < 900 ? 0.2 + 0.8 * smooth(0.05, 0.25, y) : 0.22 + 0.78 * smooth(0.33, 0.47, x);
+					return base * (0.3 + 0.7 * (1 - smooth(0.78, 0.94, y)));
+				}
 			},
 			reducedMotion
 		)

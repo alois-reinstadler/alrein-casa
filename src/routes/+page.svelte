@@ -110,7 +110,8 @@
 </header>
 
 <main id="content">
-	<section class="hero tall" id="top" aria-label="alrein">
+	<section class="hero tall" id="top" aria-labelledby="hero-title">
+		<h1 class="sr-only" id="hero-title">Alois Reinstadler — alrein.casa</h1>
 		<div class="wrap logo-stage">
 			<div class="rise" style="--d: .1s"><LiquidLogo /></div>
 			<p class="eyebrow rise" style="--d: .24s">ALREIN.CASA / WIEN, ÖSTERREICH</p>
@@ -120,89 +121,86 @@
 		</div>
 	</section>
 
-	<section class="hero tall" id="card" aria-labelledby="hero-title">
-		<canvas class="ascii-canvas hero-ascii" id="fieldHero" aria-hidden="true"></canvas>
-		<div class="wrap hero-card">
-			<p class="eyebrow rise">WIEN, ÖSTERREICH</p>
-			<h1 class="liquid rise" id="hero-title" style="--d: .1s">Alois Reinstadler</h1>
-			<p class="lede rise" style="--d: .2s">Designer, Entwickler & Betreiber eigener Systeme.</p>
-			<a class="grad cta rise" href="mailto:alreinstadler@gmail.com" style="--d: .3s">
-				<span><Mail aria-hidden="true" />alreinstadler@gmail.com</span>
-			</a>
+	<div class="hands-trap">
+		<div class="hands-stage" aria-hidden="true">
+			<canvas class="ascii-canvas hero-ascii" id="fieldHero"></canvas>
+			<div class="hero-index">
+				<span>PERSONAL INDEX</span><span>FIG. 02 / HANDS</span>
+			</div>
 		</div>
-		<div class="hero-index" aria-hidden="true">
-			<span>PERSONAL CARD</span><span>FIG. 02 / HANDS</span>
-		</div>
-	</section>
 
-	<nav bind:this={sectionNavigation} class="section-nav" aria-label="Bereichsindex">
-		{#each sections as section (section.id)}
-			<a
-				class:active={activeSection === section.id}
-				data-section={section.id}
-				href={`#${section.id}`}
-			>
-				<span>{section.number}</span>{section.label}
-			</a>
-		{/each}
-	</nav>
-
-	{#each sections as section, index (section.id)}
-		<section
-			class:has-ascii={section.id === 'lab'}
-			class:graveyard={section.id === 'graveyard'}
-			class="index-section band"
-			id={section.id}
-			use:observe={section.id}
-			aria-labelledby={`${section.id}-title`}
-		>
-			{#if section.id === 'lab'}
-				<canvas class="ascii-canvas section-ascii" id="fieldProcess" aria-hidden="true"></canvas>
-			{/if}
-
-			<div class="wrap">
-				<header class="section-heading">
-					<span class="number rise">{section.number}</span>
-					<div>
-						<p class="eyebrow rise">{section.kicker}</p>
-						<h2 class="metal rise" id={`${section.id}-title`} style="--d: .1s">
-							{section.title}
-						</h2>
-						<p class="note rise" style="--d: .18s">{section.description}</p>
-					</div>
-				</header>
-
-				<div class="entries rise" style="--d: .22s">
-					{#each section.entries as entry (entry.title)}
-						<a
-							class="entry"
-							class:archived={entry.status === 'archived'}
-							href={entry.href ?? '#contact'}
-						>
-							<span class="entry-meta">
-								<i class={`status status-${entry.status}`} aria-hidden="true"></i>{entry.meta}
-							</span>
-							<h3>{entry.title}</h3>
-							<p>{entry.description}</p>
-							<ArrowUpRight aria-hidden="true" />
-						</a>
-					{/each}
-				</div>
-
-				<div class="section-foot" aria-hidden="true">
-					<span>{section.label.toUpperCase()}</span><span
-						>{String(index + 1).padStart(2, '0')} / 06</span
+		<div class="trap-sections">
+			<nav bind:this={sectionNavigation} class="section-nav" aria-label="Bereichsindex">
+				{#each sections as section (section.id)}
+					<a
+						class:active={activeSection === section.id}
+						data-section={section.id}
+						href={`#${section.id}`}
 					>
-				</div>
-			</div>
-		</section>
+						<span>{section.number}</span>{section.label}
+					</a>
+				{/each}
+			</nav>
 
-		{#if section.id === 'shipped'}
-			<div class="ascii-rule" aria-hidden="true">
-				<canvas class="ascii-canvas" id="fieldRule"></canvas>
-			</div>
-		{/if}
-	{/each}
+			{#each sections as section, index (section.id)}
+				<section
+					class:has-ascii={section.id === 'lab'}
+					class:graveyard={section.id === 'graveyard'}
+					class="index-section band"
+					id={section.id}
+					use:observe={section.id}
+					aria-labelledby={`${section.id}-title`}
+				>
+					{#if section.id === 'lab'}
+						<canvas class="ascii-canvas section-ascii" id="fieldProcess" aria-hidden="true"
+						></canvas>
+					{/if}
+
+					<div class="wrap">
+						<header class="section-heading">
+							<span class="number rise">{section.number}</span>
+							<div>
+								<p class="eyebrow rise">{section.kicker}</p>
+								<h2 class="metal rise" id={`${section.id}-title`} style="--d: .1s">
+									{section.title}
+								</h2>
+								<p class="note rise" style="--d: .18s">{section.description}</p>
+							</div>
+						</header>
+
+						<div class="entries rise" style="--d: .22s">
+							{#each section.entries as entry (entry.title)}
+								<a
+									class="entry"
+									class:archived={entry.status === 'archived'}
+									href={entry.href ?? '#contact'}
+								>
+									<span class="entry-meta">
+										<i class={`status status-${entry.status}`} aria-hidden="true"></i>{entry.meta}
+									</span>
+									<h3>{entry.title}</h3>
+									<p>{entry.description}</p>
+									<ArrowUpRight aria-hidden="true" />
+								</a>
+							{/each}
+						</div>
+
+						<div class="section-foot" aria-hidden="true">
+							<span>{section.label.toUpperCase()}</span><span
+								>{String(index + 1).padStart(2, '0')} / 06</span
+							>
+						</div>
+					</div>
+				</section>
+
+				{#if section.id === 'shipped'}
+					<div class="ascii-rule" aria-hidden="true">
+						<canvas class="ascii-canvas" id="fieldRule"></canvas>
+					</div>
+				{/if}
+			{/each}
+		</div>
+	</div>
 
 	<section class="contact" id="contact" aria-labelledby="contact-title">
 		<div class="wrap contact-copy">
@@ -222,6 +220,7 @@
 </main>
 
 <footer>
+	<canvas class="ascii-canvas footer-ascii" id="fieldFooter" aria-hidden="true"></canvas>
 	<div class="wrap foot">
 		<small>© {new Date().getFullYear()} Alois Reinstadler</small>
 		<div class="foot-links">
