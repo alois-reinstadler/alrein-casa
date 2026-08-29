@@ -33,11 +33,6 @@
 		#aab3c1 100%
 	);
 	--sheen: rgb(255 255 255 / 92%);
-	--lm-base: #c9d3e0;
-	--lm-hi: #fff;
-	--lm-band: #0d121c;
-	--lm-warm: #ffb49b;
-	--lm-cool: #9dc1ff;
 	--bevel: 0 1px 0 rgb(0 0 0 / 60%);
 	--lift: rgb(255 255 255 / 5.5%);
 	--edge: rgb(255 255 255 / 9%);
@@ -78,11 +73,6 @@
 		#59616f 100%
 	);
 	--sheen: rgb(255 255 255 / 75%);
-	--lm-base: #333c4a;
-	--lm-hi: #05070a;
-	--lm-band: #e8eef6;
-	--lm-warm: #b8511f;
-	--lm-cool: #2f66c4;
 	--bevel: 0 1px 0 rgb(255 255 255 / 85%);
 	--lift: rgb(255 255 255 / 90%);
 	--edge: rgb(0 0 0 / 8%);
@@ -136,18 +126,6 @@ a {
 :focus-visible {
 	outline: 2px solid var(--ink);
 	outline-offset: 4px;
-}
-
-.sr-only {
-	position: absolute;
-	overflow: hidden;
-	width: 1px;
-	height: 1px;
-	margin: -1px;
-	padding: 0;
-	border: 0;
-	clip-path: inset(50%);
-	white-space: nowrap;
 }
 
 .skip-link {
@@ -244,43 +222,8 @@ section {
 	}
 }
 
-/* Liquid-metal text: flowing 70deg chrome bands with warm/cool dispersion
-   fringes, matching the hero logo shader. Period is 240px along the band
-   axis; the keyframe offset is exactly one period, so the loop is seamless. */
-.liquid {
-	background-image: repeating-linear-gradient(
-		70deg,
-		var(--lm-base) 0px,
-		var(--lm-hi) 54px,
-		var(--lm-warm) 92px,
-		var(--lm-band) 104px,
-		var(--lm-band) 132px,
-		var(--lm-cool) 144px,
-		var(--lm-base) 240px
-	);
-	background-clip: text;
-	color: transparent;
-	filter: drop-shadow(var(--bevel));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	animation: liquid-flow 6s linear infinite;
-}
-
-@keyframes liquid-flow {
-	to {
-		background-position: 225.5px -82.1px;
-	}
-}
-
 /* .ready .rise overrides the animation shorthand, which would silence the
-   chrome animations on "liquid rise"/"metal rise" elements — run both. */
-.ready .rise.liquid {
-	animation:
-		rise 0.9s cubic-bezier(0.16, 0.84, 0.28, 1) forwards,
-		liquid-flow 6s linear infinite;
-	animation-delay: var(--d, 0s), 0s;
-}
-
+   sheen on "metal rise" elements — run both. */
 .ready .rise.metal {
 	animation:
 		rise 0.9s cubic-bezier(0.16, 0.84, 0.28, 1) forwards,
@@ -289,8 +232,7 @@ section {
 }
 
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-	.metal,
-	.liquid {
+	.metal {
 		background: none;
 		color: var(--ink);
 		filter: none;
@@ -479,14 +421,13 @@ h3 {
 	border-radius: inherit;
 	background: conic-gradient(
 		from var(--spin),
-		#f8fafc,
-		#c6d0dd,
-		#ffb49b,
-		#10151d,
-		#9dc1ff,
-		#e2e9f2,
-		#8f9aab,
-		#f8fafc
+		#ff2d55,
+		#ff9f0a,
+		#ffd60a,
+		#32d74b,
+		#0a84ff,
+		#bf5af2,
+		#ff2d55
 	);
 	content: '';
 	animation: rainbow-turn var(--speed) linear infinite;
@@ -509,20 +450,10 @@ h3 {
 	justify-content: center;
 	gap: 9px;
 	border-radius: inherit;
-	background-image: repeating-linear-gradient(
-		70deg,
-		#cdd6e2 0px,
-		#fff 60px,
-		#ffcdb8 92px,
-		#8d99ab 108px,
-		#b9c8ff 124px,
-		#e6ecf4 160px,
-		#cdd6e2 240px
-	);
-	color: #0b0e14;
+	background: var(--btn-face);
 	padding: var(--pad);
 	white-space: nowrap;
-	animation: liquid-flow 6s linear infinite;
+	transition: background-color 0.4s ease;
 }
 
 @keyframes rainbow-turn {
@@ -615,44 +546,16 @@ h3 {
 	opacity: 0.18;
 }
 
-.logo-stage {
+.hero-card {
 	position: relative;
 	z-index: 3;
+	max-width: 46rem;
 	text-align: center;
 }
 
-.logo-stage .eyebrow {
-	margin: clamp(30px, 5vh, 52px) 0 0;
-}
-
-/* Scroll trap: the hands stage pins at the top while the index sections
-   scroll over it as opaque cards, with gaps that let the hands show through. */
-.hands-trap {
-	position: relative;
-}
-
-.hands-stage {
-	position: sticky;
-	z-index: 0;
-	top: 0;
-	height: 100vh;
-	height: 100svh;
-	overflow: hidden;
-}
-
-.trap-sections {
-	position: relative;
-	z-index: 2;
-	padding-bottom: 20vh;
-}
-
-.trap-sections .index-section {
-	margin-bottom: 20vh;
-	background: var(--ground);
-}
-
-.trap-sections .ascii-rule {
-	background: var(--ground);
+.hero-card .lede {
+	max-width: none;
+	margin-inline: auto;
 }
 
 .hero h1 {

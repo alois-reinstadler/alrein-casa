@@ -383,17 +383,21 @@ export function initializeAsciiExperience() {
 				fs: 9,
 				place(context, image, width, height) {
 					const narrow = width < 900;
-					const drawnWidth = width * (narrow ? 1.35 : 1.16);
+					const drawnWidth = width * (narrow ? 2.05 : 1.16);
 					const drawnHeight = drawnWidth * (image.naturalHeight / image.naturalWidth);
 					context.drawImage(
 						image,
 						(width - drawnWidth) / 2,
-						height * (narrow ? 0.5 : 0.64) - drawnHeight * (narrow ? 0.5 : 0.575),
+						height * (narrow ? 0.68 : 0.64) - drawnHeight * 0.575,
 						drawnWidth,
 						drawnHeight
 					);
 				},
-				dim: () => 1
+				dim(x, y) {
+					const ellipseX = (x - 0.5) / 0.36;
+					const ellipseY = (y - 0.44) / 0.34;
+					return 0.26 + 0.74 * smooth(0.78, 1.3, Math.hypot(ellipseX, ellipseY));
+				}
 			},
 			reducedMotion
 		),
