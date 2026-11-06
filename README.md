@@ -40,3 +40,22 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+## Writing
+
+The site is English. The blog lives at `/blog/`, with posts at
+`/blog/your-english-slug/`.
+
+Draft in `src/content/drafts/`; these files are not imported by the site.
+Start with `src/content/drafts/first-post.md`. When ready, move the Markdown
+file into `src/content/writing/` and give it a lowercase English filename
+with words separated by hyphens. That filename becomes its URL.
+
+Each post needs `title`, a quoted `date` in `YYYY-MM-DD` format, `topic`, and
+`excerpt` in its frontmatter. Topics are free text (for example Politics,
+Technology, or Personal). Posts appear newest first; the homepage shows the
+latest three. Every file in `writing/` is published, regardless of date.
+Keep unpublished material in `drafts/`.
+
+Run `pnpm check` and `pnpm build` to validate and generate the static site.
+Article pages are generated automatically from the published Markdown files.

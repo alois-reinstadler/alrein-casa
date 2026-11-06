@@ -29,10 +29,8 @@
 	size="icon"
 	class="theme-button"
 	onclick={() => applyTheme(theme === 'dark' ? 'light' : 'dark')}
-	aria-label={theme === 'dark'
-		? 'Helles Erscheinungsbild aktivieren'
-		: 'Dunkles Erscheinungsbild aktivieren'}
-	title={theme === 'dark' ? 'Helles Erscheinungsbild' : 'Dunkles Erscheinungsbild'}
+	aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+	title={theme === 'dark' ? 'Light theme' : 'Dark theme'}
 >
 	{#if theme === 'dark'}
 		<Sun aria-hidden="true" />

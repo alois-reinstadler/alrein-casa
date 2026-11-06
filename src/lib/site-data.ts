@@ -3,160 +3,76 @@ export type SiteEntry = {
 	meta: string;
 	description: string;
 	href?: string;
-	status?: 'active' | 'stable' | 'experiment' | 'archived';
+	status: 'active' | 'stable' | 'experiment';
 };
 
-export type SiteSection = {
-	number: string;
-	id: 'building' | 'shipped' | 'lab' | 'notes' | 'infrastructure' | 'graveyard';
-	label: string;
-	kicker: string;
-	title: string;
-	description: string;
-	entries: SiteEntry[];
-};
-
-export const sections: SiteSection[] = [
+export const sections = [
 	{
 		number: '01',
-		id: 'building',
-		label: 'Building',
-		kicker: 'Gerade auf der Werkbank',
-		title: 'Dinge, die gerade meinen Schreibtisch übernehmen.',
-		description: 'Unfertig, in Bewegung und nah genug am Problem, dass noch alles offen ist.',
+		id: 'projects',
+		label: 'Projects',
+		kicker: 'Things I build',
+		title: 'Selected work.',
+		description: 'Websites, tools, and systems. Some out in the world, some still taking shape.',
 		entries: [
 			{
 				title: 'alrein.casa',
-				meta: 'PERSONAL WEB · 2026',
-				description:
-					'Dieser Ort: ein lebender Index für Arbeit, Notizen und Dinge, die nicht auf LinkedIn gehören.',
+				meta: 'IN PROGRESS · PERSONAL WEB',
+				description: 'This corner of the internet. A home for my work, experiments, and thoughts.',
 				status: 'active'
 			},
 			{
-				title: 'Ein ruhigeres Internet',
-				meta: 'FORTLAUFENDES EXPERIMENT',
-				description: 'Kleine, nützliche Software, die die Menschen respektiert, die sie verwenden.',
-				status: 'experiment'
-			}
-		]
-	},
-	{
-		number: '02',
-		id: 'shipped',
-		label: 'Shipped',
-		kicker: 'Draußen in der Welt',
-		title: 'Fertig genug, um die Werkstatt zu verlassen.',
-		description:
-			'Produkte, Systeme und Websites, die den Sprung von der Idee in den Alltag geschafft haben.',
-		entries: [
-			{
 				title: 'Reinstadler Studio',
-				meta: 'DESIGN & ENTWICKLUNG',
-				description:
-					'Ein fokussiertes Zuhause für Kundenarbeit — Strategie, Design und Code aus einer Hand.',
+				meta: 'LIVE · DESIGN & DEVELOPMENT',
+				description: 'Strategy, design, and code for client projects.',
 				status: 'stable'
 			},
 			{
-				title: 'Unabhängige Systeme',
-				meta: 'TOOLS · AUTOMATISIERUNG',
-				description:
-					'Nützliche Infrastruktur für kleine Teams, die ihren Stack lieber selbst besitzen.',
+				title: 'Independent systems',
+				meta: 'LIVE · TOOLS & AUTOMATION',
+				description: 'Useful infrastructure for small teams that prefer to own their stack.',
 				status: 'stable'
 			}
-		]
+		] satisfies SiteEntry[]
 	},
 	{
-		number: '03',
+		number: '02',
 		id: 'lab',
 		label: 'Lab',
-		kicker: 'Versuchsanordnung',
-		title: 'Kleine Experimente, Prototypen und halbfertige Ideen.',
-		description:
-			'Der Bereich für Fragen, bei denen ein funktionierender Versuch mehr sagt als eine weitere Meinung.',
+		kicker: 'Room to experiment',
+		title: 'Ideas in progress.',
+		description: 'Small experiments, prototypes, and the systems running underneath.',
 		entries: [
 			{
 				title: 'ASCII Field',
-				meta: 'CANVAS · TYPE · MOTION',
+				meta: 'EXPERIMENT · CANVAS & MOTION',
 				description:
-					'Formen aus Satzzeichen, die auf Licht, Bewegung und einen neugierigen Cursor reagieren.',
+					'Shapes made of characters, responding to movement and a curious cursor. You can try them on this page.',
 				status: 'experiment'
 			},
 			{
 				title: 'Local-first everything',
 				meta: 'RESEARCH',
-				description: 'Was wird besser, wenn das Netzwerk optional statt zwingend wird?',
+				description: 'What gets better when a network connection becomes optional?',
 				status: 'experiment'
-			}
-		]
-	},
-	{
-		number: '04',
-		id: 'notes',
-		label: 'Notes',
-		kicker: 'Öffentliches Gedächtnis',
-		title: 'Dinge, die ich verstanden habe und wiederfinden will.',
-		description: 'Kurze Feldnotizen aus Design, Entwicklung und dem Betrieb eigener Systeme.',
-		entries: [
+			},
 			{
-				title: 'Build Logs statt Thought Leadership',
-				meta: 'NOTE 001 · 4 MIN',
+				title: 'The little rack',
+				meta: 'IN PROGRESS · HOMELAB',
 				description:
-					'Entscheidungen, Sackgassen und sonderbar spezifische Lösungen sichtbar machen.',
-				status: 'active'
-			},
-			{
-				title: 'Eine Website ist ein Ort',
-				meta: 'NOTE 002 · 3 MIN',
-				description: 'Warum persönliche Websites bewohnt und nicht bloß optimiert wirken sollten.',
+					'A deliberately unremarkable collection of services I can understand and repair.',
 				status: 'active'
 			}
-		]
+		] satisfies SiteEntry[]
 	},
 	{
-		number: '05',
-		id: 'infrastructure',
-		label: 'Infrastructure',
-		kicker: 'Unter der Oberfläche',
-		title: 'Server, Netzwerke und die Kabel dazwischen.',
+		number: '03',
+		id: 'blog',
+		label: 'Blog',
+		kicker: 'An open notebook',
+		title: 'Thinking out loud.',
 		description:
-			'Die langweiligen, verständlichen Systeme, auf denen alles andere zuverlässig stehen darf.',
-		entries: [
-			{
-				title: 'Das kleine Rack',
-				meta: 'HOMELAB · AKTIV',
-				description:
-					'Eine bewusst unspektakuläre Sammlung von Diensten, die ich verstehen und reparieren kann.',
-				status: 'active'
-			},
-			{
-				title: 'Wie diese Seite hierherkommt',
-				meta: 'SVELTEKIT · EDGE',
-				description: 'Die Route von einem Git-Push bis zu den Pixeln auf deinem Bildschirm.',
-				status: 'stable'
-			}
-		]
-	},
-	{
-		number: '06',
-		id: 'graveyard',
-		label: 'Graveyard',
-		kicker: 'Post-mortem',
-		title: 'Projekte, die lehrreich und glorreich gestorben sind.',
-		description:
-			'Beerdigt, aber nicht vergessen. Jede gute Werkstatt braucht ein Regal für Fehlversuche.',
-		entries: [
-			{
-				title: 'Das perfekte Dashboard',
-				meta: '2023–2024 · URSACHE: AMBITION',
-				description: 'Es konnte alles — außer den Tag von irgendjemandem einfacher zu machen.',
-				status: 'archived'
-			},
-			{
-				title: 'Mehrere ausgezeichnete Domains',
-				meta: 'VERSCHIEDENE · URSACHE: REALITÄT',
-				description: 'Starke Namen, schöne Logos und absolut kein Grund zu existieren.',
-				status: 'archived'
-			}
-		]
+			'Politics, technology, and life together. A place for opinions, questions, and changing my mind.',
+		entries: [] satisfies SiteEntry[]
 	}
 ];

@@ -1,3 +1,4 @@
+import { readdirSync } from 'node:fs';
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import { mdsvex } from 'mdsvex';
 import tailwindcss from '@tailwindcss/vite';
@@ -20,6 +21,15 @@ export default defineConfig({
 			// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
 			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 			adapter: adapter(),
+			prerender: {
+				handleUnseenRoutes({ routes, message }) {
+					// An empty blog has no article URLs to generate yet.
+					const hasPosts = readdirSync('src/content/writing').some((file) => file.endsWith('.md'));
+					if (hasPosts || routes.some((route) => route !== '/blog/[slug]')) {
+						throw new Error(message);
+					}
+				}
+			},
 			paths: {
 				base: process.env.BASE_PATH ?? ''
 			},

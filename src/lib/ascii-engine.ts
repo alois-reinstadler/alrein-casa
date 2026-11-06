@@ -371,136 +371,79 @@ function requiredCanvas(id: string) {
 	return canvas;
 }
 
-export function initializeAsciiExperience() {
+export function initializeAsciiExperience(ids = ['fieldHero', 'fieldProcess', 'fieldFooter']) {
 	const root = document.documentElement;
 	const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	const fields = [
-		createField(
-			requiredCanvas('fieldHero'),
-			handsPlate,
-			{
-				fs: 9,
-				place(context, image, width, height) {
-					const narrow = width < 900;
-					const drawnWidth = width * (narrow ? 2.05 : 1.16);
-					const drawnHeight = drawnWidth * (image.naturalHeight / image.naturalWidth);
-					context.drawImage(
-						image,
-						(width - drawnWidth) / 2,
-						height * (narrow ? 0.68 : 0.64) - drawnHeight * 0.575,
-						drawnWidth,
-						drawnHeight
-					);
-				},
-				dim(x, y) {
-					const ellipseX = (x - 0.5) / 0.36;
-					const ellipseY = (y - 0.44) / 0.34;
-					return 0.26 + 0.74 * smooth(0.78, 1.3, Math.hypot(ellipseX, ellipseY));
-				}
-			},
-			reducedMotion
-		),
-		createField(
-			requiredCanvas('fieldRule'),
-			null,
-			{
-				fs: 7,
-				paint(context, width, height) {
-					const patternHeight = height * 0.68;
-					const unit = patternHeight / 4;
-					const top = (height - patternHeight) / 2;
-					const period = unit * 5;
-					context.lineWidth = unit * 0.86;
-					context.lineCap = 'butt';
-					context.lineJoin = 'miter';
-					context.beginPath();
-					context.moveTo(0, top + unit * 4);
-					context.lineTo(width, top + unit * 4);
-					for (let x = -period; x < width + period; x += period) {
-						context.moveTo(x + unit * 0.55, top + unit * 4);
-						context.lineTo(x + unit * 0.55, top + unit * 0.45);
-						context.lineTo(x + unit * 3.6, top + unit * 0.45);
-						context.lineTo(x + unit * 3.6, top + unit * 2.6);
-						context.lineTo(x + unit * 1.9, top + unit * 2.6);
-						context.lineTo(x + unit * 1.9, top + unit * 1.6);
-						context.lineTo(x + unit * 2.7, top + unit * 1.6);
-					}
-					context.stroke();
-				},
-				dim: () => 1
-			},
-			reducedMotion
-		),
-		createField(
-			requiredCanvas('fieldProcess'),
-			discusPlate,
-			{
-				fs: 8,
-				place(context, image, width, height) {
-					if (width < 900) {
-						const drawnHeight = Math.min(height * 0.5, width * 1.05);
+		() =>
+			createField(
+				requiredCanvas('fieldHero'),
+				handsPlate,
+				{
+					fs: 9,
+					place(context, image, width, height) {
+						const narrow = width < 900;
+						const drawnWidth = width * (narrow ? 2.05 : 1.16);
+						const drawnHeight = drawnWidth * (image.naturalHeight / image.naturalWidth);
 						context.drawImage(
 							image,
-							width * 0.5 - drawnHeight / 2,
-							height * 0.76 - drawnHeight / 2,
-							drawnHeight,
+							(width - drawnWidth) / 2,
+							height * (narrow ? 0.68 : 0.64) - drawnHeight * 0.575,
+							drawnWidth,
 							drawnHeight
 						);
-					} else {
-						const drawnHeight = Math.min(height * 0.92, width * 0.62);
-						context.drawImage(
-							image,
-							width * 0.255 - drawnHeight / 2,
-							height * 0.52 - drawnHeight / 2,
-							drawnHeight,
-							drawnHeight
-						);
+					},
+					dim(x, y) {
+						const ellipseX = (x - 0.5) / 0.36;
+						const ellipseY = (y - 0.44) / 0.34;
+						return 0.26 + 0.74 * smooth(0.78, 1.3, Math.hypot(ellipseX, ellipseY));
 					}
 				},
-				dim: (x, y, width) =>
-					width < 900
-						? 0.15 + 0.85 * smooth(0.52, 0.68, y)
-						: 0.24 + 0.76 * smooth(0.34, 0.48, 1 - x)
-			},
-			reducedMotion
-		),
-		createField(
-			requiredCanvas('fieldFooter'),
-			victoryPlate,
-			{
-				fs: 9,
-				place(context, image, width, height) {
-					const aspectRatio = image.naturalWidth / image.naturalHeight;
-					if (width < 900) {
-						const drawnHeight = Math.min(height * 0.92, (width * 1.7) / aspectRatio);
+				reducedMotion
+			),
+		() =>
+			createField(
+				requiredCanvas('fieldProcess'),
+				discusPlate,
+				{
+					fs: 8,
+					place(context, image, width, height) {
+						const size = Math.min(width * 1.3, height * 0.95);
+						context.drawImage(image, (width - size) / 2, (height - size) / 2, size, size);
+					},
+					dim: () => 0.7
+				},
+				reducedMotion
+			),
+		() =>
+			createField(
+				requiredCanvas('fieldFooter'),
+				victoryPlate,
+				{
+					fs: 9,
+					place(context, image, width, height) {
+						const aspectRatio = image.naturalWidth / image.naturalHeight;
+						const drawnHeight = Math.min(height * 0.95, (width * 0.48) / aspectRatio);
 						context.drawImage(
 							image,
-							width * 0.6 - (drawnHeight * aspectRatio) / 2,
-							height * 0.54 - drawnHeight / 2,
-							drawnHeight * aspectRatio,
-							drawnHeight
-						);
-					} else {
-						const drawnHeight = Math.min(height * 0.95, (width * 0.58) / aspectRatio);
-						context.drawImage(
-							image,
-							width * 0.735 - (drawnHeight * aspectRatio) / 2,
+							width * 0.77 - (drawnHeight * aspectRatio) / 2,
 							height * 0.5 - drawnHeight / 2,
 							drawnHeight * aspectRatio,
 							drawnHeight
 						);
+					},
+					dim(x, y, width) {
+						const base =
+							width < 900 ? 0.2 + 0.8 * smooth(0.05, 0.25, y) : 0.22 + 0.78 * smooth(0.33, 0.47, x);
+						return base * (0.3 + 0.7 * (1 - smooth(0.78, 0.94, y)));
 					}
 				},
-				dim(x, y, width) {
-					const base =
-						width < 900 ? 0.2 + 0.8 * smooth(0.05, 0.25, y) : 0.22 + 0.78 * smooth(0.33, 0.47, x);
-					return base * (0.3 + 0.7 * (1 - smooth(0.78, 0.94, y)));
-				}
-			},
-			reducedMotion
-		)
-	];
+				reducedMotion
+			)
+	]
+		.filter((_, index) => ids.includes(['fieldHero', 'fieldProcess', 'fieldFooter'][index]))
+		.map((create) => create());
 
 	let animationFrame = 0;
 	let resizeFrame = 0;

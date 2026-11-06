@@ -85,7 +85,7 @@
 }
 
 html {
-	scroll-behavior: smooth;
+	scroll-behavior: auto;
 	scroll-padding-top: 58px;
 	background: var(--ground);
 }
@@ -172,7 +172,7 @@ section {
 }
 
 .ready .ascii-canvas {
-	animation: field-in 1.6s ease forwards;
+	animation: field-in 0.6s ease forwards;
 }
 
 @keyframes field-in {
@@ -291,7 +291,7 @@ h3 {
 }
 
 .site-header {
-	position: absolute;
+	position: fixed;
 	z-index: 20;
 	top: 0;
 	display: grid;
@@ -351,7 +351,7 @@ h3 {
 	color: var(--ink-2);
 	padding: 10px 17px;
 	font-size: 14.5px;
-	font-weight: 500;
+	font-weight: 620;
 	letter-spacing: -0.006em;
 	white-space: nowrap;
 	transition:
@@ -556,6 +556,10 @@ h3 {
 .hero-card .lede {
 	max-width: none;
 	margin-inline: auto;
+}
+
+.hero-card .cta {
+	margin-top: clamp(32px, 5vh, 52px);
 }
 
 .hero h1 {
@@ -818,49 +822,34 @@ h3 {
 
 .contact {
 	display: flex;
-	min-height: 72vh;
 	min-height: 72svh;
 	align-items: center;
 	overflow: hidden;
 }
 
 .contact-copy {
-	padding-block: clamp(96px, 14vh, 160px);
-	text-align: center;
+	position: relative;
+	z-index: 3;
+	padding-block: clamp(80px, 12vh, 140px);
+	text-align: left;
 }
 
 .contact h2 {
-	max-width: 18ch;
-	margin-inline: auto;
-	font-size: clamp(3rem, 6.1vw, 6.5rem);
-}
-
-.contact .lede {
-	margin-inline: auto;
-	text-align: center;
+	max-width: 12ch;
+	font-size: clamp(2.5rem, 5vw, 5.5rem);
 }
 
 .contact .cta {
 	margin-top: clamp(28px, 4.4vh, 48px);
 }
 
-.ascii-rule {
-	position: relative;
-	height: clamp(150px, 20vh, 210px);
-	overflow: hidden;
-}
-
 footer {
 	position: relative;
 	z-index: 3;
-	display: flex;
-	min-height: 74vh;
-	min-height: 74svh;
-	align-items: flex-end;
 	overflow: hidden;
 	border-top: 1px solid var(--hairline-2);
 	background: var(--ground);
-	padding: clamp(34px, 5vh, 54px) 0;
+	padding-bottom: clamp(34px, 5vh, 54px);
 }
 
 .footer-ascii {
@@ -1047,7 +1036,7 @@ footer {
 	}
 
 	.contact h2 {
-		font-size: clamp(2.85rem, 12vw, 5.5rem);
+		font-size: clamp(2rem, 5.5vw, 4.4rem);
 	}
 }
 
@@ -1090,5 +1079,378 @@ footer {
 	.rise {
 		transform: none;
 		opacity: 1;
+	}
+}
+
+/* Writing uses quiet typography and a narrower reading measure. */
+.writing-main {
+	max-width: 1040px;
+	min-height: 78svh;
+	padding-top: clamp(140px, 19vh, 220px);
+	padding-bottom: clamp(80px, 12vh, 140px);
+}
+.writing-heading {
+	margin-bottom: 64px;
+}
+.writing-heading h1 {
+	font-size: clamp(3rem, 7vw, 6rem);
+}
+.writing-heading .lede {
+	max-width: 38rem;
+}
+.writing-preview {
+	margin: 56px 0 0 clamp(3rem, 7vw, 7rem);
+}
+.text-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	padding-block: 12px;
+	text-decoration: underline;
+	text-underline-offset: 5px;
+}
+.text-link svg {
+	width: 17px;
+}
+.writing-empty {
+	border-block: 1px solid var(--hairline);
+	padding: 32px 0;
+	margin-bottom: 20px;
+}
+.writing-empty p {
+	max-width: 40rem;
+	color: var(--ink-2);
+	line-height: 1.7;
+}
+.writing-empty .empty-title {
+	color: var(--ink);
+	font-size: 1.4rem;
+	margin-bottom: 8px;
+}
+.post-card {
+	padding-block: 32px;
+	border-top: 1px solid var(--hairline);
+}
+.post-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px 24px;
+	color: var(--ink-2);
+	font-size: 13px;
+	margin-bottom: 16px;
+}
+.post-card h2 {
+	font-size: clamp(1.6rem, 3vw, 2.2rem);
+	line-height: 1.2;
+}
+.post-card h2 a {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 24px;
+}
+.post-card h2 a:hover {
+	text-decoration: underline;
+	text-underline-offset: 5px;
+}
+.post-card h2 svg {
+	flex: none;
+	width: 20px;
+}
+.post-card p {
+	margin-top: 16px;
+	max-width: 42rem;
+	color: var(--ink-2);
+	line-height: 1.75;
+}
+.writing-footer {
+	padding-top: 32px;
+}
+.article-main {
+	max-width: 860px;
+}
+.article-main h1 {
+	font-size: clamp(2.6rem, 5vw, 4.5rem);
+	line-height: 1.08;
+	overflow-wrap: anywhere;
+}
+.back-link {
+	margin-bottom: 40px;
+}
+.byline {
+	color: var(--ink-2);
+	margin-top: 24px;
+	font-size: 14px;
+}
+.prose {
+	font-size: clamp(1.08rem, 2vw, 1.2rem);
+	line-height: 1.85;
+	overflow-wrap: anywhere;
+}
+.prose > * + * {
+	margin-top: 1.5em;
+}
+.prose h2,
+.prose h3 {
+	margin-top: 2em;
+	line-height: 1.25;
+}
+.prose h2 {
+	font-size: 1.8em;
+}
+.prose h3 {
+	font-size: 1.35em;
+}
+.prose a {
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
+.prose ul {
+	list-style: disc;
+	padding-left: 1.5em;
+}
+.prose ol {
+	list-style: decimal;
+	padding-left: 1.5em;
+}
+.prose li + li {
+	margin-top: 0.4em;
+}
+.prose blockquote {
+	border-left: 2px solid var(--ink-2);
+	padding-left: 1.25em;
+	color: var(--ink-2);
+}
+.prose pre {
+	overflow-x: auto;
+	background: var(--raised);
+	padding: 20px;
+	border: 1px solid var(--hairline);
+	font-size: 0.85em;
+}
+.prose img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+.article-response {
+	margin-top: 64px;
+	padding-top: 28px;
+	border-top: 1px solid var(--hairline);
+}
+.article-response p {
+	color: var(--ink-2);
+}
+@media (max-width: 800px) {
+	.writing-preview {
+		margin-left: 0;
+	}
+}
+
+.home-destinations {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 40px;
+	padding-block: clamp(64px, 10vh, 120px);
+}
+.home-destinations > a {
+	border-top: 1px solid var(--hairline);
+	padding-top: 24px;
+}
+.home-destinations .eyebrow {
+	display: block;
+}
+.home-destinations h2 {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: clamp(1.7rem, 3vw, 2.5rem);
+}
+.home-destinations h2 svg {
+	width: 24px;
+}
+.home-destinations p {
+	color: var(--ink-2);
+	line-height: 1.75;
+	margin-top: 24px;
+}
+.home-destinations a:hover h2 {
+	text-decoration: underline;
+	text-underline-offset: 6px;
+}
+.collection-main {
+	padding-top: 72px;
+}
+.collection-main h1 {
+	font-size: clamp(3rem, 6vw, 6rem);
+}
+.collection-main .entry h2 {
+	font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+	line-height: 1.3;
+}
+.has-ascii .entry h2 {
+	grid-column: 1;
+}
+@media (max-width: 800px) {
+	.home-destinations {
+		grid-template-columns: 1fr;
+	}
+	.collection-main .entry h2 {
+		grid-column: 1;
+	}
+}
+
+/* One persistent shell and one spacing system for every route. */
+:root {
+	--header-height: 84px;
+	--page-top: clamp(64px, 8vh, 104px);
+	--page-bottom: clamp(72px, 10vh, 120px);
+	--page-width: 1240px;
+}
+html {
+	scrollbar-gutter: stable;
+}
+@supports not (scrollbar-gutter: stable) {
+	html {
+		overflow-y: scroll;
+	}
+}
+.site-header {
+	height: var(--header-height);
+	border-bottom: 1px solid var(--hairline-2);
+	background: color-mix(in srgb, var(--ground) 88%, transparent);
+	backdrop-filter: blur(20px);
+}
+.site-shell {
+	padding-top: var(--header-height);
+}
+.route-view {
+	display: flex;
+	flex-direction: column;
+	min-height: calc(100svh - var(--header-height));
+}
+.route-content {
+	flex: 1;
+}
+.wrap {
+	max-width: var(--page-width);
+}
+.page-main {
+	position: relative;
+	padding-top: var(--page-top);
+	padding-bottom: var(--page-bottom);
+}
+.page-heading {
+	position: relative;
+	z-index: 2;
+	margin-bottom: 64px;
+}
+.page-heading h1 {
+	font-size: clamp(3rem, 6vw, 5.5rem);
+	line-height: 1.04;
+}
+.page-heading .lede {
+	max-width: 40rem;
+}
+.collection-entries {
+	position: relative;
+	z-index: 2;
+	border-top: 1px solid var(--hairline);
+}
+.collection-entries .entry {
+	grid-template-columns: minmax(150px, 0.8fr) minmax(180px, 1fr) minmax(0, 1.5fr);
+}
+.collection-entries .entry h2 {
+	font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+	line-height: 1.3;
+}
+.collection-entries .entry:hover {
+	margin-inline: 0;
+	padding-inline: 4px;
+}
+.lab-page {
+	overflow: clip;
+}
+.lab-page .page-heading,
+.lab-page .collection-entries {
+	width: 57%;
+}
+.lab-page .entry {
+	grid-template-columns: 1fr;
+	gap: 12px;
+}
+.lab-art {
+	position: absolute;
+	top: var(--page-top);
+	bottom: 48px;
+	right: 0;
+	width: 42%;
+	pointer-events: none;
+}
+.article-main {
+	max-width: 860px;
+}
+.hero.tall {
+	height: calc(100svh - var(--header-height));
+}
+.writing-footer {
+	padding-block: 32px;
+}
+@media (max-width: 800px) {
+	:root {
+		--header-height: 68px;
+		--page-top: 48px;
+		--page-bottom: 64px;
+	}
+	.page-heading {
+		margin-bottom: 40px;
+	}
+	.collection-entries .entry {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+	.lab-page .page-heading,
+	.lab-page .collection-entries {
+		width: 100%;
+	}
+	.lab-art {
+		position: relative;
+		top: auto;
+		bottom: auto;
+		width: 100%;
+		height: 260px;
+		margin-top: 32px;
+	}
+	.lab-page {
+		display: flex;
+		flex-direction: column;
+	}
+	.lab-art {
+		order: 3;
+	}
+	.hero.tall {
+		height: auto;
+		min-height: calc(100svh - var(--header-height));
+		padding-block: 72px;
+	}
+}
+
+/* A transient character field uses the same visual language as the statue canvases. */
+.route-ascii-transition {
+	position: fixed;
+	z-index: 18;
+	top: var(--header-height);
+	left: 0;
+	width: 100%;
+	height: calc(100dvh - var(--header-height));
+	visibility: hidden;
+	pointer-events: none;
+}
+.route-ascii-transition.changing {
+	visibility: visible;
+}
+@media (prefers-reduced-motion: reduce) {
+	.route-ascii-transition {
+		display: none;
 	}
 }
