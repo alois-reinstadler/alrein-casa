@@ -5,10 +5,18 @@ yarn.lock
 bun.lock
 bun.lockb
 
+# Generated output
+.turbo
+**/.svelte-kit
+**/build
+apps/web/src/lib/paraglide
+apps/web/project.inlang/*
+!apps/web/project.inlang/settings.json
+
 # Miscellaneous
-/static/
+apps/web/static/
 
 # Preserved legacy source and generated shadcn primitives
-src/lib/assets/OLD_SITE.html
-src/lib/components/ui/
-src/lib/utils.ts
+apps/web/src/lib/assets/OLD_SITE.html
+apps/web/src/lib/components/ui/
+apps/web/src/lib/utils.ts

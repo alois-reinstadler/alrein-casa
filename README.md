@@ -1,42 +1,30 @@
-# sv
+# alrein-casa
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Personal and family monorepo for the Reinstadler household. It is separate from the ar2k
+business and is never part of the ar2k platform.
 
-## Creating a project
+## Layout
 
-If you're seeing this, you've probably already done this step. Congrats!
+| Path        | What                                                           |
+| ----------- | -------------------------------------------------------------- |
+| `apps/web`  | Personal site (SvelteKit, static), deployed to GitHub Pages    |
+| `apps/hub`  | Family home hub (scaffold only)                                |
+| `services/` | Docker Compose for self-hosted family services (scaffold only) |
+| `infra/`    | Pulumi + Ansible for the family VPS (scaffold only)            |
+| `docs/`     | Plans and roadmap                                              |
 
-```sh
-# create a new project
-npx sv create my-app
-```
+## Tooling
 
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-pnpm dlx sv@0.17.0 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:none" paraglide="languageTags:en, es, de, tr, it+demo:yes" experimental="versions:kit+features:async,remoteFunctions,explicitEnvironmentVariables,handleRenderingErrors,forkPreloads" mdsvex --install pnpm alrein-casa
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+pnpm workspaces + Turborepo. Toolchain versions are pinned in `mise.toml` (Node, pnpm, just)
+and `packageManager` in `package.json`.
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+mise install   # Node, pnpm and just at the pinned versions
+pnpm install
+pnpm dev       # run apps/web
+pnpm check     # the gate: prettier, svelte-check and eslint across all workspaces
+pnpm build
 ```
 
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+`just` mirrors these (`just check`, `just dev`, ...). CI runs `pnpm check` and a build on
+every pull request.
