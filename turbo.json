@@ -1,0 +1,15 @@
+{
+	"$schema": "https://turborepo.com/schema.json",
+	"tasks": {
+		"build": {
+			"env": ["BASE_PATH"],
+			"outputs": ["build/**"]
+		},
+		"check": {},
+		"lint": {},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		}
+	}
+}
